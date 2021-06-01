@@ -1,0 +1,33 @@
+name: 'Install dependencies and start the service'
+inputs:
+  service:
+    description: 'Service to start'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install dependencies
+      shell: bash
+      run: |
+        echo "::group::Install dependencies"
+
+        cd ${{ github.action_path }}/../../${{ inputs.service }}
+
+        if [ "${{ inputs.service }}" == "gateway" ]; then
+          yarn install
+        else
+          poetry install
+        fi
+
+        echo "::endgroup::"
+    - name: Run service
+      shell: bash
+      run: |
+        cd ${{ github.action_path }}/../../${{ inputs.service }}
+
+        if [ "${{ inputs.service }}" == "gateway" ]; then
+          yarn dev &
+        else
+          poetry run task server &
+        fi

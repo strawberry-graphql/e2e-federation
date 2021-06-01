@@ -6,7 +6,7 @@ authors = ["Strawberry"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-strawberry-graphql = { path = "../../../"}
+strawberry-graphql = { path = "/home/runner/work/strawberry/strawberry" }
 starlette = "^0.14.2"
 
 [tool.poetry.dev-dependencies]
