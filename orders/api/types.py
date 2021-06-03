@@ -32,4 +32,10 @@ class Product:
 
     @classmethod
     async def resolve_reference(cls, id: ID, name: Optional[str] = None):
+        # type: ignore because of the mismatch of types because the argument
+        # `name` here and the field `name` in Product
+        # We need `Product#name` to be `str` as it needs the same type it has
+        # in the other services, but since resolve_reference will send `name`
+        # only when the field that requires it is queried, it might be null in some
+        # cases
         return cls(id=id, name=name)  # type: ignore
